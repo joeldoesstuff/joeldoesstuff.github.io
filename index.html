@@ -57,6 +57,7 @@
 
                   document.querySelector('#button-load').addEventListener('click', () => {
                       modelViewer.dismissPoster();
+                      modelViewer.queueRender();
 
                       setTimeout(() => {
     window.dispatchEvent(new Event('resize'));
