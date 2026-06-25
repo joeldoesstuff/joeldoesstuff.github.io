@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+</head>
+<body>
+    <script type="module" src="model-viewer.min.js"></script>
+    <style>
+        model-viewer{
+            width:800px; 
+            height: 600px;
+        }
+
+
+        #lazy-load-poster{
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-image: url("preview.jpg");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #button-load {
+            background-image: url("dnw.png");
+            background-repeat: no-repeat;
+            background-size: 24px 24px;
+            background-position: 6% 50%;
+            background-color: #fff;
+            color: black;
+            cursor: pointer;
+            border-radius: 6px;
+            display: inline-block;
+            padding: 10px 18px 9px 40px;
+            font-weight: 500;
+            box-shadow: 0 0 8px rgba(0, 0, 0, .2), 0 0 4px rgba(0, 0, 0, .25);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%, -50%, 0);
+            z-index: 100;
+        }
+
+    </style>
+    <model-viewer id="lazy-load" camera-controls touch-action="pan-y" reveal="manual" alt="A 3D model of an astronaut" src="test2.glb">
+        <div id="lazy-load-poster" slot="poster"></div>
+                  <div id="button-load" slot="poster">Load 3D Model</div>
+    </model-viewer>
+                    <script>
+                  document.querySelector('#button-load').addEventListener('click',
+                    () => document.querySelector('#lazy-load').dismissPoster());
+                </script>
+</body>
+</html>
