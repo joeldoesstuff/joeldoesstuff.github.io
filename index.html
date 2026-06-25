@@ -73,6 +73,18 @@
                 }
             }
         });
+
+    document.addEventListener('visibilitychange', () => {
+            // If the user comes back to this tab and the poster was already dismissed
+            if (document.visibilityState === 'visible' && !modelViewer.classList.contains('slot-poster')) {
+                // Force-kick the WebGL layout engine to salvage the dropped textures
+                modelViewer.resize();
+                modelViewer.queueRender();
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                }, 100);
+            }
+        });
                 </script>
 </body>
 </html>
