@@ -57,32 +57,31 @@
 
                   document.querySelector('#button-load').addEventListener('click', () => {
                       modelViewer.dismissPoster();
-                      modelViewer.queueRender();
-
+                      modelViewer.queueRender(); 
+                      
                       setTimeout(() => {
-    window.dispatchEvent(new Event('resize'));
-}, 50);
-
+                          window.dispatchEvent(new Event('resize'));
+                      }, 50);
                   }); 
 
-        modelViewer.addEventListener('load', () => {
-            for (const material of modelViewer.model.materials) {
-                // Removes occlusion map from all materials.
-                if (material.occlusionTexture) {
-                    material.occlusionTexture.setTexture(null);
-                }
-            }
-        });
-
-    document.addEventListener('visibilitychange', () => {
-            // If the user comes back to this tab and the poster was already dismissed
-            if (document.visibilityState === 'visible' && !modelViewer.classList.contains('slot-poster')) {
-                // Force-kick the WebGL layout engine to salvage the dropped textures
-                modelViewer.resize();
-                modelViewer.queueRender();
-                setTimeout(() => {
-                    window.dispatchEvent(new Event('resize'));
-                }, 100);
+        // BLENDER FIX: Run the texture scrubbing inside the model-visibility event.
+        // This fires *after* Blender's packed textures break open in iOS memory.
+        modelViewer.addEventListener('model-visibility', (event) => {
+            if (event.detail.visible === true) {
+                // Repeating the loop on a tiny continuous interval fixes the "double-click/refresh" race condition
+                let textureCheckCounter = 0;
+                const clearBlenderMaps = setInterval(() => {
+                    if (modelViewer.model && modelViewer.model.materials) {
+                        for (const material of modelViewer.model.materials) {
+                            if (material.occlusionTexture) {
+                                material.occlusionTexture.setTexture(null);
+                            }
+                        }
+                    }
+                    textureCheckCounter++;
+                    // Stop checking after 1.5 seconds once textures settle
+                    if (textureCheckCounter > 30) clearInterval(clearBlenderMaps);
+                }, 50);
             }
         });
                 </script>
