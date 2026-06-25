@@ -52,18 +52,20 @@
         <div id="lazy-load-poster" slot="poster"></div>
                   <div id="button-load" slot="poster">Load 3D Model</div>
     </model-viewer>
-                    <script>
-// Define the missing variable so the script doesn't crash
+<script>
                   const modelViewer = document.querySelector('#lazy-load');
 
                   document.querySelector('#button-load').addEventListener('click', () => {
-                    modelViewer.dismissPoster();
+                      modelViewer.dismissPoster();
 
+                  }); 
 
-                        modelViewer.addEventListener('load', () => {
+        modelViewer.addEventListener('load', () => {
             for (const material of modelViewer.model.materials) {
                 // Removes occlusion map from all materials.
-                material.occlusionTexture.setTexture(null);
+                if (material.occlusionTexture) {
+                    material.occlusionTexture.setTexture(null);
+                }
             }
         });
                 </script>
