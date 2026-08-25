@@ -56,6 +56,15 @@
           material.occlusionTexture.setTexture(null);
         }
       });
+
+					const modelViewer = document.querySelector('model-viewer');
+
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) {
+    // Tab is active again, force a redraw/framing update
+    modelViewer.updateFraming();
+  }
+});
                 </script>
 </body>
 </html>
