@@ -14,7 +14,7 @@
                     right: 0;
                     top: 0;
                     bottom: 0;
-                    background-image: url("preview.png");
+                    background-image: url("preview.jpg");
                     background-size: contain;
                     background-repeat: no-repeat;
                     background-position: center;
@@ -63,7 +63,7 @@ document.addEventListener('visibilitychange', () => {
   if (!document.hidden) {
     // Tab is active again, force a redraw/framing update
     // modelViewer.updateFraming();
-	  document.reload();
+	  location.reload();
   }
 });
                 </script>
