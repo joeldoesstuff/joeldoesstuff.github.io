@@ -60,11 +60,10 @@
 					const modelViewer = document.querySelector('model-viewer');
 
 document.addEventListener('visibilitychange', () => {
-  if (!document.hidden) {
-    // Tab is active again, force a redraw/framing update
-    // modelViewer.updateFraming();
-	  location.reload();
-	  console.log("hello")
+  if (document.hidden) {
+    console.log('User tabbed out (page is now hidden).');
+  } else {
+    console.log('User tabbed back in (page is now visible).');
   }
 });
                 </script>
