@@ -50,13 +50,6 @@
                   document.querySelector('#button-load').addEventListener('click',
                     () => document.querySelector('#lazy-load').dismissPoster());
 
-		modelViewer.addEventListener('load', () => {
-        for (const material of modelViewer.model.materials) {
-          // Removes occlusion map from all materials.
-          material.occlusionTexture.setTexture(null);
-        }
-      });
-
 					const modelViewer = document.querySelector('model-viewer');
 
 document.addEventListener('visibilitychange', () => {
