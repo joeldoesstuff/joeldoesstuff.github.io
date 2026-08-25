@@ -62,7 +62,8 @@
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden) {
     // Tab is active again, force a redraw/framing update
-    modelViewer.updateFraming();
+    // modelViewer.updateFraming();
+	  document.reload();
   }
 });
                 </script>
