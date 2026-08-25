@@ -51,14 +51,16 @@
                   document.querySelector('#button-load').addEventListener('click',
                     () => document.querySelector('#lazy-load').dismissPoster());
 
-					modelViewer.environmentImage = 'Neutral Lighting'; 
 					const modelViewer = document.querySelector('model-viewer');
 
+// Detect when the user returns to the tab
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) {
-    console.log('User tabbed out (page is now hidden).');
-  } else {
-    console.log('User tabbed back in (page is now visible).');
+  if (document.visibilityState === 'visible') {
+    // If the model looks dead/black, force a layout update or model tick
+    if (modelViewer && modelViewer.modelIsVisible) {
+       // Quickly toggle an attribute or update dimensions to force WebGL to redraw
+       modelViewer.queueRender(); 
+    }
   }
 });
                 </script>
